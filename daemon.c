@@ -32,9 +32,15 @@
 
 /* Add or remove app names here. These must match the process name
    visible to pgrep (i.e., what you'd see in `ps aux`).             */
+/* Process names as they appear in `ps aux` on macOS.
+   Use lowercase — we pass -i to pgrep for case-insensitive matching.
+   Steam's actual process name on macOS is "steam_osx" not "Steam".  */
 static const char *DISTRACTOR_APPS[] = {
     "Discord",
-
+    "steam_osx",
+    "Spotify",
+    "Google Chrome",
+    "WhatsApp",
     NULL   /* sentinel – do not remove */
 };
 
@@ -47,8 +53,10 @@ static const char *DISTRACTOR_APPS[] = {
  */
 static int get_pids_for_app(const char *app_name, pid_t *pids, int max_pids) {
     char cmd[256];
-    /* -x : exact match on process name */
-    snprintf(cmd, sizeof(cmd), "pgrep -x \"%s\" 2>/dev/null", app_name);
+    /* Use -f to match against the full command line — this handles
+       multi-word app names like "Google Chrome" which pgrep -i fails
+       to find when names contain spaces.                             */
+    snprintf(cmd, sizeof(cmd), "pgrep -f \"%s\" 2>/dev/null", app_name);
 
     FILE *fp = popen(cmd, "r");
     if (!fp) return 0;
