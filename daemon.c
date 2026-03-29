@@ -32,15 +32,13 @@
 
 /* Add or remove app names here. These must match the process name
    visible to pgrep (i.e., what you'd see in `ps aux`).             */
-/* Process names as they appear in `ps aux` on macOS.
-   Use lowercase — we pass -i to pgrep for case-insensitive matching.
-   Steam's actual process name on macOS is "steam_osx" not "Steam".  */
+/* Exact binary names as they appear in the last part of the path
+   in `ps aux`. pgrep -f matches against the full command line.    */
 static const char *DISTRACTOR_APPS[] = {
-    "Discord",
-    "steam_osx",
-    "Spotify",
-    "Google Chrome",
-    "WhatsApp",
+    "MacOS/Discord",
+    "MacOS/Spotify",
+    "MacOS/WhatsApp",
+    "MacOS/steam_osx",
     NULL   /* sentinel – do not remove */
 };
 
