@@ -30,7 +30,7 @@
 #define PIPE_PATH      "/tmp/auralock.pipe"
 #define CMD_BUF_SIZE   64
 
-/* Add or remove app names here. These must match the process name
+/* Add or remove apps name here. These must match the process name
    visible to pgrep (i.e., what you'd see in `ps aux`).             */
 /* Exact binary names as they appear in the last part of the path
    in `ps aux`. pgrep -f matches against the full command line.    */
